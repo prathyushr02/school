@@ -1,0 +1,206 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <title>Registration Page</title>
+    <style>
+        .reg {
+            font-family: Arial, sans-serif;
+            margin: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .registration-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 325px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input {
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #confirmationMessage {
+            color: green;
+            margin-top: 10px;        }
+    </style>
+</head>
+<body>
+<div>
+ <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">School Store</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="btn btn-outline-success" href="#">Logout</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Department
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Computer_science">Computer Science</a></li>
+            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Commerce">Commerce</a></li>
+            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Arts_in_education">Arts</a></li>
+            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Management">Management</a></li>
+            <li><a class="dropdown-item" href="https://en.wikipedia.org/wiki/Science">Science</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="d-flex" role="search" method="post">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+</div>
+<div class="reg">
+<div class="registration-container">
+    <h2 style="text-align:center;">Registration</h2>
+    <form action="#" method="post" id="registrationForm" onsubmit="submitForm(event)">
+        {% csrf_token %}
+        <label for="name">Name:
+        <input type="text" id="name" name="name" required>
+        </label>
+
+        <label for="dob">DOB:&nbsp;&nbsp;
+        <input type="date" id="dob" name="dob" required>
+        </label>
+
+        <label for="age">Age:&nbsp;&nbsp;
+        <input type="number" id="age" name="age" required>
+        </label>
+
+        <label>Gender:&nbsp;&nbsp;
+        Male
+        <input type="radio" value="male" name="gender" required>
+        Female
+        <input type="radio" value="female" name="gender" required>
+        </label>
+
+        <label for="phone">Phone:&nbsp;
+        <input type="number" id="phone" name="phone" maxlength="10" required>
+        </label>
+
+        <label for="email">Mail ID:
+        <input type="email" id="email" name="email" required>
+        </label>
+
+        <label for="address">Address:
+        <input type="text" id="address" name="name" required>        </label>
+
+        <label for="department">Department:</label>
+        <select id="department" name="department" required>
+            <option value="" disabled selected>Select Department</option>
+            <option value="dept1">Computer Science</option>
+            <option value="dept2">Science</option>
+            <option value="dept3">Commerce</option>
+            <option value="dept4">Arts</option>
+            <option value="dept5">Management</option>
+        </select>
+
+        <label for="course">Course:</label>
+        <select id="course" name="course" required>
+            <option value="" disabled selected>Select Course</option>
+        </select>
+        <label for="purpose">Purpose:</label>
+        <select id="purpose" name="purpose" required>
+            <option value="" disabled selected>Select</option>
+            <option value="enquiry">Enquiry</option>
+            <option value="order">Place Order</option>
+            <option value="return">Return</option>
+        </select>
+        <label>Materials Provided:</label>
+        <label>Pen<input class="check" type="checkbox" name="Pen"></label>
+        <label>Notebook<input class="check" type="checkbox" name="Notebook"></label>
+        <label>Exam Paper<input class="check" type="checkbox" name="ExamPaper"></label>
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Add the confirmation message element -->
+    {% if confirmation_message %}
+    <p id="confirmationMessage">{{ confirmation_message }}</p>
+    <p>Return to <a href="/">home page</a></p>
+    {% endif %}
+</div>
+</div>
+
+<script>
+
+
+     document.getElementById('department').addEventListener('change', function () {
+        var department = this.value;
+        var courseDropdown = document.getElementById('course');
+
+        courseDropdown.innerHTML = '<option value="" disabled selected>Select Course</option>';
+
+        if (department === 'dept1') {
+            addCourseOption('BCA');
+            addCourseOption('MCA');
+        } else if (department === 'dept2') {
+            addCourseOption('BSc');
+            addCourseOption('MSc');
+        } else if (department === 'dept3') {
+            addCourseOption('BCom');
+            addCourseOption('MCom');
+        } else if (department === 'dept4') {
+            addCourseOption('BA');
+            addCourseOption('BFA');
+        } else if (department === 'dept5') {
+            addCourseOption('MMM');
+            addCourseOption('MFM');
+        }
+
+        function addCourseOption(courseName) {
+            var option = document.createElement('option');
+            option.value = courseName.toLowerCase().replace(' ', '');
+            option.textContent = courseName;
+            courseDropdown.appendChild(option);
+        }
+    });
+</script>
+
+</body>
+</html>
